@@ -29,15 +29,21 @@ namespace proc_sinais_2
         {
             InitializeComponent();
 
+            var furksValues = GetValuesByFreq(30).ToList();
+
+            var chartValues = new ChartValues<double>();
+
+            furksValues.ForEach(f => chartValues.Add(f));
+
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Values = new ChartValues<double> { 3, 5, 7, 4, 20 }
+                    Values = chartValues
                 }
             };
 
-            Labels = new[] { "0", "10", "20", "30", "40" };
+
 
 
             DataContext = this;
@@ -46,6 +52,35 @@ namespace proc_sinais_2
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btn_generate(object sender, RoutedEventArgs e)
+        {
+            var freq = Convert.ToInt32(((Button)sender).Tag);
+
+            //TODO: Generate result
+
+            var furksValues = GetValuesByFreq(freq).ToList();
+
+            var chartValues = new ChartValues<double>();
+
+            furksValues.ForEach(f => chartValues.Add(f));
+
+            SeriesCollection = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Values = chartValues
+                }
+            };
+
+            DataContext = this;
+
+        }
+
+        public double[] GetValuesByFreq(int freq)
+        {
+            return new double[] { 10, 20, 30 };
         }
     }
 }
